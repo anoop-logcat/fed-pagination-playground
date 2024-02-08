@@ -1,4 +1,4 @@
-type Post @key(fields: "_id") {
+type Post @key(fields: "_id createdBy") {
   _id: ID!
   createdAt: DateTime
   updatedAt: DateTime
@@ -6,6 +6,11 @@ type Post @key(fields: "_id") {
   description: String
   imageUrl: String!
   createdBy: ID!
+}
+
+extend type User @key(fields: "_id") {
+  _id: ID!
+  posts(filter: JSON, sort: JSON, limit: Int, offset: Int): [Post]!
 }
 
 input CreatePostInput {

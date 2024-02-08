@@ -9,6 +9,12 @@ type User @key(fields: "_id") {
   lastLoggedIn: DateTime
 }
 
+extend type Post @key(fields: "_id createdBy") {
+  _id: ID! @external
+  createdBy: ID! @external
+  createdByUser: User!
+}
+
 input CreateUserInput {
   firstName: String!
   lastName: String

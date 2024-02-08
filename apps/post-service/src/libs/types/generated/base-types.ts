@@ -9,6 +9,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Mayb
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type FieldWrapper<T> = T;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -129,6 +130,20 @@ export type UpdatePostInput = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type User = {
+  __typename?: 'User';
+  _id: FieldWrapper<Scalars['ID']['output']>;
+  posts: Array<Maybe<FieldWrapper<Post>>>;
+};
+
+
+export type UserPostsArgs = {
+  filter?: InputMaybe<Scalars['JSON']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['JSON']['input']>;
+};
+
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 
@@ -228,6 +243,7 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   UpdatePostInput: UpdatePostInput;
+  User: ResolverTypeWrapper<Omit<User, 'posts'> & { posts: Array<Maybe<ResolversTypes['Post']>> }>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 }>;
 
@@ -245,6 +261,7 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {};
   Int: Scalars['Int']['output'];
   UpdatePostInput: UpdatePostInput;
+  User: Omit<User, 'posts'> & { posts: Array<Maybe<ResolversParentTypes['Post']>> };
   Boolean: Scalars['Boolean']['output'];
 }>;
 
@@ -288,7 +305,7 @@ export type MutationResolvers<ContextType = PostServiceContext, ParentType exten
 }>;
 
 export type PostResolvers<ContextType = PostServiceContext, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Post']>, { __typename: 'Post' } & GraphQLRecursivePick<UnwrappedObject<ParentType>, {"_id":true}>, ContextType>;
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Post']>, { __typename: 'Post' } & GraphQLRecursivePick<UnwrappedObject<ParentType>, {"_id":true,"createdBy":true}>, ContextType>;
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   createdBy?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -307,6 +324,13 @@ export type QueryResolvers<ContextType = PostServiceContext, ParentType extends 
   postServiceHello?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;
 
+export type UserResolvers<ContextType = PostServiceContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['User']>, { __typename: 'User' } & GraphQLRecursivePick<UnwrappedObject<ParentType>, {"_id":true}>, ContextType>;
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  posts?: Resolver<Array<Maybe<ResolversTypes['Post']>>, ParentType, ContextType, Partial<UserPostsArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = PostServiceContext> = ResolversObject<{
   DateTime?: GraphQLScalarType;
   EmailAddress?: GraphQLScalarType;
@@ -314,6 +338,7 @@ export type Resolvers<ContextType = PostServiceContext> = ResolversObject<{
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 }>;
 
 export type DirectiveResolvers<ContextType = PostServiceContext> = ResolversObject<{

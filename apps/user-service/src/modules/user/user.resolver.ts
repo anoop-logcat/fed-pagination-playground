@@ -18,4 +18,7 @@ export default {
   User: {
     __resolveReference: async (ref, context, info) => (ref._id ? context.loaders.userByIdLoader.load(ref._id) : null),
   },
+  Post: {
+    createdByUser: async (post, args, context) => context.loaders.userByIdLoader.load(post.createdBy),
+  },
 } as Resolvers;

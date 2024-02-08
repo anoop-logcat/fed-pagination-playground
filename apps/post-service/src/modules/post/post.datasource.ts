@@ -1,13 +1,13 @@
 import { getSearchRegex, parseQuery } from "@hubspire/cache-directive";
 import { GraphQLError } from "graphql";
-import { get, omit, set, size, map, isEmpty } from "lodash";
+import { get, isEmpty, map, omit, set, size } from "lodash";
 import { PipelineStage } from "mongoose";
 import {
   CreatePostInput,
-  QueryGetAllPostArgs,
-  QueryGetOnePostArgs,
   MutationDeleteManyPostArgs,
+  QueryGetAllPostArgs,
   QueryGetAllPostCountArgs,
+  QueryGetOnePostArgs,
   UpdatePostInput,
 } from "../../libs/types";
 import { PostModel } from "./post.model";
@@ -16,6 +16,7 @@ export default class PostDataSource {
   private readonly model = PostModel;
 
   async getAllPost(args: QueryGetAllPostArgs) {
+    console.log(parseQuery(args.filter));
     const pipelines: PipelineStage[] = [];
     const limit = Number(args.limit) || 10;
     const offset = Number(args.offset) || 0;
