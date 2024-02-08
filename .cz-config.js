@@ -13,6 +13,6 @@ module.exports = {
     { value: ":construction_worker: build", name: "build: Add or update regards to build process" },
     { value: ":green_heart: ci", name: "ci: Add or update ci/cd process" },
   ],
-  scopes: [{ name: "config" }],
+  scopes: [{ name: "config" }, { name: "user-service" }, { name: "post-service" }, { name: "app-main" }],
   allowBreakingChanges: ["feat", "fix"],
 };

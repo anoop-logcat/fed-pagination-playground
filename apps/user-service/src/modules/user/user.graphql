@@ -1,0 +1,51 @@
+type User @key(fields: "_id") {
+  _id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  firstName: String!
+  lastName: String
+  email: EmailAddress!
+  password: String!
+  lastLoggedIn: DateTime
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String
+  email: EmailAddress!
+  password: String!
+  lastLoggedIn: DateTime
+}
+
+input UpdateUserInput {
+  _id: ID!
+  firstName: String
+  lastName: String
+  email: EmailAddress
+  password: String
+  lastLoggedIn: DateTime
+}
+
+extend type Query {
+  getUserById(_id: ID!): User @serviceAdmin @cacheSet(type: "getUserById", identifier: "_id")
+  getAllUser(search: String, filter: JSON, sort: JSON, limit: Int, offset: Int): [User]!
+    @serviceAdmin
+    @cacheSet(type: "getAllUser", identifier: "_id")
+  getOneUser(filter: JSON, sort: JSON): User @serviceAdmin @cacheSet(type: "getUser", identifier: "_id")
+  getAllUserCount(search: String, filter: JSON): Int! @serviceAdmin
+}
+
+extend type Mutation {
+  createUser(data: CreateUserInput!): User! @serviceAdmin @cachePurge(payloads: [{ types: ["getOneUser", "getAllUser"] }])
+  createManyUser(datas: [CreateUserInput!]!): [User!]! @serviceAdmin @cachePurge(payloads: [{ types: ["getOneUser", "getAllUser"] }])
+  updateUser(data: UpdateUserInput!): User!
+    @serviceAdmin
+    @cachePurge(payloads: [{ types: ["getOneUser", "getAllUser", "getUserById"], identifier: "_id" }])
+  updateManyUser(datas: [UpdateUserInput!]!): [User!]!
+    @serviceAdmin
+    @cachePurge(payloads: [{ types: ["getOneUser", "getAllUser", "getUserById"], identifier: "_id" }])
+  deleteUser(_id: ID!): User! @serviceAdmin @cachePurge(payloads: [{ types: ["getOneUser", "getAllUser", "getUserById"], identifier: "_id" }])
+  deleteManyUser(filter: JSON!): [User!]!
+    @serviceAdmin
+    @cachePurge(payloads: [{ types: ["getOneUser", "getAllUser", "getUserById"], identifier: "_id" }])
+}

@@ -1,0 +1,29 @@
+{
+  "name": "post-service",
+  "version": "1.0.0",
+  "description": "A node based application designed for npm workspace",
+  "private": true,
+  "scripts": {
+    "test": "jest --testPathPattern=./dist --coverage --forceExit",
+    "test:watch": "jest --testPathPattern=./src --watch",
+    "postbuild": "node ../../scripts/copy-files.js",
+    "build": "node ./esbuild.config.js",
+    "apps:watch": "../../node_modules/nodemon/bin/nodemon.js",
+    "serve": "tsx ./src/app.ts",
+    "start": "node ./dist/app.js",
+    "docker:build": "docker build -t $ECR_REGISTRY/post-service:$Environment -t $ECR_REGISTRY/post-service:$IMAGE_TAG -f Dockerfile ../../",
+    "docker:push": "docker push --all-tags $ECR_REGISTRY/post-service"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.10.0",
+    "@apollo/subgraph": "^2.7.1",
+    "@graphql-tools/load-files": "^7.0.0",
+    "@graphql-tools/merge": "^9.0.1",
+    "@graphql-tools/utils": "^10.0.13",
+    "@hubspire/cache-directive": "^1.2.3",
+    "graphql": "^16.8.1",
+    "graphql-scalars": "^1.22.4",
+    "mongodb-memory-server": "^9.1.6",
+    "mongoose": "^8.1.1"
+  }
+}

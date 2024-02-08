@@ -1,0 +1,48 @@
+type Post @key(fields: "_id") {
+  _id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String!
+  description: String
+  imageUrl: String!
+  createdBy: ID!
+}
+
+input CreatePostInput {
+  title: String!
+  description: String
+  imageUrl: String!
+  createdBy: ID!
+}
+
+input UpdatePostInput {
+  _id: ID!
+  title: String
+  description: String
+  imageUrl: String
+  createdBy: ID
+}
+
+extend type Query {
+  getPostById(_id: ID!): Post @serviceAdmin @cacheSet(type: "getPostById", identifier: "_id")
+  getAllPost(search: String, filter: JSON, sort: JSON, limit: Int, offset: Int): [Post]!
+    @serviceAdmin
+    @cacheSet(type: "getAllPost", identifier: "_id")
+  getOnePost(filter: JSON, sort: JSON): Post @serviceAdmin @cacheSet(type: "getPost", identifier: "_id")
+  getAllPostCount(search: String, filter: JSON): Int! @serviceAdmin
+}
+
+extend type Mutation {
+  createPost(data: CreatePostInput!): Post! @serviceAdmin @cachePurge(payloads: [{ types: ["getOnePost", "getAllPost"] }])
+  createManyPost(datas: [CreatePostInput!]!): [Post!]! @serviceAdmin @cachePurge(payloads: [{ types: ["getOnePost", "getAllPost"] }])
+  updatePost(data: UpdatePostInput!): Post!
+    @serviceAdmin
+    @cachePurge(payloads: [{ types: ["getOnePost", "getAllPost", "getPostById"], identifier: "_id" }])
+  updateManyPost(datas: [UpdatePostInput!]!): [Post!]!
+    @serviceAdmin
+    @cachePurge(payloads: [{ types: ["getOnePost", "getAllPost", "getPostById"], identifier: "_id" }])
+  deletePost(_id: ID!): Post! @serviceAdmin @cachePurge(payloads: [{ types: ["getOnePost", "getAllPost", "getPostById"], identifier: "_id" }])
+  deleteManyPost(filter: JSON!): [Post!]!
+    @serviceAdmin
+    @cachePurge(payloads: [{ types: ["getOnePost", "getAllPost", "getPostById"], identifier: "_id" }])
+}

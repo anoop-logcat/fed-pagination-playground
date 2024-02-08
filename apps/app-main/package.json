@@ -1,0 +1,26 @@
+{
+  "name": "app-main",
+  "version": "1.0.0",
+  "description": "A node based application designed for npm workspace",
+  "private": true,
+  "scripts": {
+    "test": "jest --testPathPattern=./dist --coverage --forceExit",
+    "test:watch": "jest --testPathPattern=./src --watch",
+    "postbuild": "node ../../scripts/copy-files.js",
+    "build": "node ./esbuild.config.js",
+    "apps:watch": "../../node_modules/nodemon/bin/nodemon.js",
+    "serve": "tsx ./src/app.ts",
+    "start": "node ./dist/app.js",
+    "docker:build": "docker build -t $ECR_REGISTRY/app-main:$Environment -t $ECR_REGISTRY/app-main:$IMAGE_TAG -f Dockerfile ../../",
+    "docker:push": "docker push --all-tags $ECR_REGISTRY/app-main"
+  },
+  "dependencies": {
+    "@apollo/gateway": "^2.7.1",
+    "@apollo/server": "^4.10.0",
+    "graphql": "^16.8.1",
+    "make-fetch-happen": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/make-fetch-happen": "^10.0.4"
+  }
+}
