@@ -22,6 +22,7 @@ async function ApolloServerInit() {
       subgraphs: [
         { name: "post-service", url: process.env.POST_SERVICE_URL },
         { name: "user-service", url: process.env.USER_SERVICE_URL },
+        { name: "product-service", url: process.env.PRODUCT_SERVICE_URL },
       ],
     }),
     buildService({ url }) {

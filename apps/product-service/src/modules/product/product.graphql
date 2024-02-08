@@ -1,11 +1,16 @@
 type Product @key(fields: "_id") {
   _id: ID!
-  createdAt: DateTime
-  updatedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
   productName: String!
   productDescription: String
   price: Int!
-  isAvailable: Boolean
+  isAvailable: Boolean!
+}
+
+extend type User @key(fields: "_id") {
+  _id: ID! @external
+  products(filter: JSON, sort: JSON, limit: Int, offset: Int): [Product]!
 }
 
 input CreateProductInput {
@@ -28,7 +33,7 @@ extend type Query {
   getAllProduct(search: String, filter: JSON, sort: JSON, limit: Int, offset: Int): [Product]!
     @serviceAdmin
     @cacheSet(type: "getAllProduct", identifier: "_id")
-  getOneProduct(filter: JSON, sort: JSON): Product @serviceAdmin @cacheSet(type: "getProduct", identifier: "_id")
+  getOneProduct(filter: JSON, sort: JSON): Product @serviceAdmin @cacheSet(type: "getOneProduct", identifier: "_id")
   getAllProductCount(search: String, filter: JSON): Int! @serviceAdmin
 }
 

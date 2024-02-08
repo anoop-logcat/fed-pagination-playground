@@ -10,6 +10,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Mayb
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type FieldWrapper<T> = T;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -36,26 +37,14 @@ export type CreateProductInput = {
   productName: Scalars['String']['input'];
 };
 
-export type CreateUserProductInput = {
-  isFav?: InputMaybe<Scalars['Boolean']['input']>;
-  productId: Scalars['ID']['input'];
-  userId: Scalars['ID']['input'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   createManyProduct: Array<FieldWrapper<Product>>;
-  createManyUserProduct: Array<FieldWrapper<UserProduct>>;
   createProduct: FieldWrapper<Product>;
-  createUserProduct: FieldWrapper<UserProduct>;
   deleteManyProduct: Array<FieldWrapper<Product>>;
-  deleteManyUserProduct: Array<FieldWrapper<UserProduct>>;
   deleteProduct: FieldWrapper<Product>;
-  deleteUserProduct: FieldWrapper<UserProduct>;
   updateManyProduct: Array<FieldWrapper<Product>>;
-  updateManyUserProduct: Array<FieldWrapper<UserProduct>>;
   updateProduct: FieldWrapper<Product>;
-  updateUserProduct: FieldWrapper<UserProduct>;
 };
 
 
@@ -64,27 +53,12 @@ export type MutationCreateManyProductArgs = {
 };
 
 
-export type MutationCreateManyUserProductArgs = {
-  datas: Array<CreateUserProductInput>;
-};
-
-
 export type MutationCreateProductArgs = {
   data: CreateProductInput;
 };
 
 
-export type MutationCreateUserProductArgs = {
-  data: CreateUserProductInput;
-};
-
-
 export type MutationDeleteManyProductArgs = {
-  filter: Scalars['JSON']['input'];
-};
-
-
-export type MutationDeleteManyUserProductArgs = {
   filter: Scalars['JSON']['input'];
 };
 
@@ -94,18 +68,8 @@ export type MutationDeleteProductArgs = {
 };
 
 
-export type MutationDeleteUserProductArgs = {
-  _id: Scalars['ID']['input'];
-};
-
-
 export type MutationUpdateManyProductArgs = {
   datas: Array<UpdateProductInput>;
-};
-
-
-export type MutationUpdateManyUserProductArgs = {
-  datas: Array<UpdateUserProductInput>;
 };
 
 
@@ -113,33 +77,23 @@ export type MutationUpdateProductArgs = {
   data: UpdateProductInput;
 };
 
-
-export type MutationUpdateUserProductArgs = {
-  data: UpdateUserProductInput;
-};
-
 export type Product = {
   __typename?: 'Product';
   _id: FieldWrapper<Scalars['ID']['output']>;
-  createdAt?: Maybe<FieldWrapper<Scalars['DateTime']['output']>>;
-  isAvailable?: Maybe<FieldWrapper<Scalars['Boolean']['output']>>;
+  createdAt: FieldWrapper<Scalars['DateTime']['output']>;
+  isAvailable: FieldWrapper<Scalars['Boolean']['output']>;
   price: FieldWrapper<Scalars['Int']['output']>;
   productDescription?: Maybe<FieldWrapper<Scalars['String']['output']>>;
   productName: FieldWrapper<Scalars['String']['output']>;
-  updatedAt?: Maybe<FieldWrapper<Scalars['DateTime']['output']>>;
+  updatedAt: FieldWrapper<Scalars['DateTime']['output']>;
 };
 
 export type Query = {
   __typename?: 'Query';
   getAllProduct: Array<Maybe<FieldWrapper<Product>>>;
   getAllProductCount: FieldWrapper<Scalars['Int']['output']>;
-  getAllUserProduct: Array<Maybe<FieldWrapper<UserProduct>>>;
-  getAllUserProductCount: FieldWrapper<Scalars['Int']['output']>;
   getOneProduct?: Maybe<FieldWrapper<Product>>;
-  getOneUserProduct?: Maybe<FieldWrapper<UserProduct>>;
   getProductById?: Maybe<FieldWrapper<Product>>;
-  getUserProductById?: Maybe<FieldWrapper<UserProduct>>;
-  productServiceHello: FieldWrapper<Scalars['String']['output']>;
 };
 
 
@@ -158,39 +112,13 @@ export type QueryGetAllProductCountArgs = {
 };
 
 
-export type QueryGetAllUserProductArgs = {
-  filter?: InputMaybe<Scalars['JSON']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-  sort?: InputMaybe<Scalars['JSON']['input']>;
-};
-
-
-export type QueryGetAllUserProductCountArgs = {
-  filter?: InputMaybe<Scalars['JSON']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-};
-
-
 export type QueryGetOneProductArgs = {
   filter?: InputMaybe<Scalars['JSON']['input']>;
   sort?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
-export type QueryGetOneUserProductArgs = {
-  filter?: InputMaybe<Scalars['JSON']['input']>;
-  sort?: InputMaybe<Scalars['JSON']['input']>;
-};
-
-
 export type QueryGetProductByIdArgs = {
-  _id: Scalars['ID']['input'];
-};
-
-
-export type QueryGetUserProductByIdArgs = {
   _id: Scalars['ID']['input'];
 };
 
@@ -202,21 +130,18 @@ export type UpdateProductInput = {
   productName?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type UpdateUserProductInput = {
-  _id: Scalars['ID']['input'];
-  isFav?: InputMaybe<Scalars['Boolean']['input']>;
-  productId?: InputMaybe<Scalars['ID']['input']>;
-  userId?: InputMaybe<Scalars['ID']['input']>;
+export type User = {
+  __typename?: 'User';
+  _id: FieldWrapper<Scalars['ID']['output']>;
+  products: Array<Maybe<FieldWrapper<Product>>>;
 };
 
-export type UserProduct = {
-  __typename?: 'UserProduct';
-  _id: FieldWrapper<Scalars['ID']['output']>;
-  createdAt?: Maybe<FieldWrapper<Scalars['DateTime']['output']>>;
-  isFav?: Maybe<FieldWrapper<Scalars['Boolean']['output']>>;
-  productId: FieldWrapper<Scalars['ID']['output']>;
-  updatedAt?: Maybe<FieldWrapper<Scalars['DateTime']['output']>>;
-  userId: FieldWrapper<Scalars['ID']['output']>;
+
+export type UserProductsArgs = {
+  filter?: InputMaybe<Scalars['JSON']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -311,17 +236,15 @@ export type ResolversTypes = ResolversObject<{
   CreateProductInput: CreateProductInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  CreateUserProductInput: CreateUserProductInput;
-  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']['output']>;
   JSON: ResolverTypeWrapper<Scalars['JSON']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Product: ResolverTypeWrapper<IProductDocument>;
   Query: ResolverTypeWrapper<{}>;
   UpdateProductInput: UpdateProductInput;
-  UpdateUserProductInput: UpdateUserProductInput;
-  UserProduct: ResolverTypeWrapper<IUserProductDocument>;
+  User: ResolverTypeWrapper<Omit<User, 'products'> & { products: Array<Maybe<ResolversTypes['Product']>> }>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -331,17 +254,15 @@ export type ResolversParentTypes = ResolversObject<{
   CreateProductInput: CreateProductInput;
   Boolean: Scalars['Boolean']['output'];
   Int: Scalars['Int']['output'];
-  CreateUserProductInput: CreateUserProductInput;
-  ID: Scalars['ID']['output'];
   DateTime: Scalars['DateTime']['output'];
   EmailAddress: Scalars['EmailAddress']['output'];
   JSON: Scalars['JSON']['output'];
   Mutation: {};
+  ID: Scalars['ID']['output'];
   Product: IProductDocument;
   Query: {};
   UpdateProductInput: UpdateProductInput;
-  UpdateUserProductInput: UpdateUserProductInput;
-  UserProduct: IUserProductDocument;
+  User: Omit<User, 'products'> & { products: Array<Maybe<ResolversParentTypes['Product']>> };
 }>;
 
 export type CachePurgeDirectiveArgs = {
@@ -376,51 +297,36 @@ export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 
 export type MutationResolvers<ContextType = ProductServiceContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createManyProduct?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationCreateManyProductArgs, 'datas'>>;
-  createManyUserProduct?: Resolver<Array<ResolversTypes['UserProduct']>, ParentType, ContextType, RequireFields<MutationCreateManyUserProductArgs, 'datas'>>;
   createProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'data'>>;
-  createUserProduct?: Resolver<ResolversTypes['UserProduct'], ParentType, ContextType, RequireFields<MutationCreateUserProductArgs, 'data'>>;
   deleteManyProduct?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationDeleteManyProductArgs, 'filter'>>;
-  deleteManyUserProduct?: Resolver<Array<ResolversTypes['UserProduct']>, ParentType, ContextType, RequireFields<MutationDeleteManyUserProductArgs, 'filter'>>;
   deleteProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationDeleteProductArgs, '_id'>>;
-  deleteUserProduct?: Resolver<ResolversTypes['UserProduct'], ParentType, ContextType, RequireFields<MutationDeleteUserProductArgs, '_id'>>;
   updateManyProduct?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationUpdateManyProductArgs, 'datas'>>;
-  updateManyUserProduct?: Resolver<Array<ResolversTypes['UserProduct']>, ParentType, ContextType, RequireFields<MutationUpdateManyUserProductArgs, 'datas'>>;
   updateProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'data'>>;
-  updateUserProduct?: Resolver<ResolversTypes['UserProduct'], ParentType, ContextType, RequireFields<MutationUpdateUserProductArgs, 'data'>>;
 }>;
 
 export type ProductResolvers<ContextType = ProductServiceContext, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = ResolversObject<{
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Product']>, { __typename: 'Product' } & GraphQLRecursivePick<UnwrappedObject<ParentType>, {"_id":true}>, ContextType>;
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  isAvailable?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  isAvailable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   productDescription?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   productName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<ContextType = ProductServiceContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getAllProduct?: Resolver<Array<Maybe<ResolversTypes['Product']>>, ParentType, ContextType, Partial<QueryGetAllProductArgs>>;
   getAllProductCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<QueryGetAllProductCountArgs>>;
-  getAllUserProduct?: Resolver<Array<Maybe<ResolversTypes['UserProduct']>>, ParentType, ContextType, Partial<QueryGetAllUserProductArgs>>;
-  getAllUserProductCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<QueryGetAllUserProductCountArgs>>;
   getOneProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryGetOneProductArgs>>;
-  getOneUserProduct?: Resolver<Maybe<ResolversTypes['UserProduct']>, ParentType, ContextType, Partial<QueryGetOneUserProductArgs>>;
   getProductById?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryGetProductByIdArgs, '_id'>>;
-  getUserProductById?: Resolver<Maybe<ResolversTypes['UserProduct']>, ParentType, ContextType, RequireFields<QueryGetUserProductByIdArgs, '_id'>>;
-  productServiceHello?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;
 
-export type UserProductResolvers<ContextType = ProductServiceContext, ParentType extends ResolversParentTypes['UserProduct'] = ResolversParentTypes['UserProduct']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['UserProduct']>, { __typename: 'UserProduct' } & GraphQLRecursivePick<UnwrappedObject<ParentType>, {"_id":true}>, ContextType>;
-  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  isFav?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  productId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+export type UserResolvers<ContextType = ProductServiceContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['User']>, { __typename: 'User' } & GraphQLRecursivePick<UnwrappedObject<ParentType>, {"_id":true}>, ContextType>;
+
+  products?: Resolver<Array<Maybe<ResolversTypes['Product']>>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"_id":true}>, ContextType, Partial<UserProductsArgs>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -431,7 +337,7 @@ export type Resolvers<ContextType = ProductServiceContext> = ResolversObject<{
   Mutation?: MutationResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  UserProduct?: UserProductResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 }>;
 
 export type DirectiveResolvers<ContextType = ProductServiceContext> = ResolversObject<{

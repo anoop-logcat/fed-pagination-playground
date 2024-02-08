@@ -1,5 +1,3 @@
-import UserProductDataSource from "./userProduct/userProduct.datasource";
-import ProductDataSource from "./product/product.datasource";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import { loadFilesSync } from "@graphql-tools/load-files";
 import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
@@ -8,7 +6,7 @@ import { GraphQLDateTime, GraphQLEmailAddress, GraphQLJSON } from "graphql-scala
 import path from "path";
 import { authDirectiveTransformer } from "../libs/directives/auth.directive";
 import { TModule } from "../libs/types";
-import HelloDataSource from "./hello/hello.datasource";
+import ProductDataSource from "./product/product.datasource";
 
 const typeDefs = mergeTypeDefs(
   loadFilesSync(path.resolve(__dirname + "/**/*.graphql"), {
@@ -23,9 +21,7 @@ const resolvers = mergeResolvers(
 
 export const Modules: TModule = {
   dataSources: {
-    userProductDataSource: new UserProductDataSource(),
     productDataSource: new ProductDataSource(),
-    helloDataSource: new HelloDataSource(),
   },
   schemas: cacheDirectiveTransformer(
     authDirectiveTransformer(

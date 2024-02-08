@@ -12,6 +12,9 @@ export class HeaderDataSource extends RemoteGraphQLDataSource {
         case String(process.env.USER_SERVICE_URL):
           request.http.headers.set("service-token", process.env.USER_SERVICE_TOKEN);
           break;
+        case String(process.env.PRODUCT_SERVICE_URL):
+          request.http.headers.set("service-token", process.env.PRODUCT_SERVICE_TOKEN);
+          break;
       }
     }
   }

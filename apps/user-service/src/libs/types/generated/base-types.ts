@@ -32,7 +32,6 @@ export type CachePurgeInput = {
 export type CreateUserInput = {
   email: Scalars['EmailAddress']['input'];
   firstName: Scalars['String']['input'];
-  lastLoggedIn?: InputMaybe<Scalars['DateTime']['input']>;
   lastName?: InputMaybe<Scalars['String']['input']>;
   password: Scalars['String']['input'];
 };
@@ -89,7 +88,6 @@ export type Query = {
   getAllUserCount: FieldWrapper<Scalars['Int']['output']>;
   getOneUser?: Maybe<FieldWrapper<User>>;
   getUserById?: Maybe<FieldWrapper<User>>;
-  userServiceHello: FieldWrapper<Scalars['String']['output']>;
 };
 
 
@@ -122,21 +120,18 @@ export type UpdateUserInput = {
   _id: Scalars['ID']['input'];
   email?: InputMaybe<Scalars['EmailAddress']['input']>;
   firstName?: InputMaybe<Scalars['String']['input']>;
-  lastLoggedIn?: InputMaybe<Scalars['DateTime']['input']>;
   lastName?: InputMaybe<Scalars['String']['input']>;
-  password?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type User = {
   __typename?: 'User';
   _id: FieldWrapper<Scalars['ID']['output']>;
-  createdAt?: Maybe<FieldWrapper<Scalars['DateTime']['output']>>;
+  createdAt: FieldWrapper<Scalars['DateTime']['output']>;
   email: FieldWrapper<Scalars['EmailAddress']['output']>;
   firstName: FieldWrapper<Scalars['String']['output']>;
   lastLoggedIn?: Maybe<FieldWrapper<Scalars['DateTime']['output']>>;
   lastName?: Maybe<FieldWrapper<Scalars['String']['output']>>;
-  password: FieldWrapper<Scalars['String']['output']>;
-  updatedAt?: Maybe<FieldWrapper<Scalars['DateTime']['output']>>;
+  updatedAt: FieldWrapper<Scalars['DateTime']['output']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -311,19 +306,17 @@ export type QueryResolvers<ContextType = UserServiceContext, ParentType extends 
   getAllUserCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<QueryGetAllUserCountArgs>>;
   getOneUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<QueryGetOneUserArgs>>;
   getUserById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, '_id'>>;
-  userServiceHello?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;
 
 export type UserResolvers<ContextType = UserServiceContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['User']>, { __typename: 'User' } & GraphQLRecursivePick<UnwrappedObject<ParentType>, {"_id":true}>, ContextType>;
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['EmailAddress'], ParentType, ContextType>;
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastLoggedIn?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

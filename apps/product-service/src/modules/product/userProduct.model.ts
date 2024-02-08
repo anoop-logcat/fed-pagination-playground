@@ -3,7 +3,6 @@ import { Document, Model, Schema, Types, model } from "mongoose";
 type IUserProduct = {
   userId: Types.ObjectId;
   productId: Types.ObjectId;
-  isFav: boolean;
 } & Record<"createdAt" | "updatedAt", Readonly<Date>>;
 
 export interface IUserProductDocument extends IUserProduct, Document {}
@@ -16,17 +15,13 @@ const UserProductSchema = new Schema<IUserProductDocument, IUserProductModel>(
       type: Schema.Types.ObjectId,
       required: true,
       unique: false,
+      index: true,
     },
     productId: {
       type: Schema.Types.ObjectId,
       required: true,
       unique: false,
-    },
-    isFav: {
-      type: Boolean,
-      required: false,
-      unique: false,
-      default: true,
+      index: true,
     },
   },
   {
@@ -34,4 +29,4 @@ const UserProductSchema = new Schema<IUserProductDocument, IUserProductModel>(
   }
 );
 
-export const UserProductModel = model<IUserProductDocument, IUserProductModel>("userProducts", UserProductSchema);
+export const UserProductModel = model<IUserProductDocument, IUserProductModel>("_product_users", UserProductSchema);

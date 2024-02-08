@@ -18,4 +18,7 @@ export default {
   Product: {
     __resolveReference: async (ref, context, info) => (ref._id ? context.loaders.productByIdLoader.load(ref._id) : null),
   },
+  User: {
+    products: (parent, args, context, info) => context.loaders.productByUserIdLoader.load({ userId: parent._id, args }),
+  },
 } as Resolvers;

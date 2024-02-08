@@ -1,16 +1,16 @@
 import { TestDB } from "../../__test__/test-db";
 import TestApolloServer from "../../__test__/test-server";
 import {
-  createUserOperation,
   createManyUserOperation,
-  deleteUserOperation,
+  createUserOperation,
   deleteManyUserOperation,
+  deleteUserOperation,
   getAllUserCountOperation,
   getAllUserOperation,
-  getUserByIdOperation,
   getOneUserOperation,
-  updateUserOperation,
+  getUserByIdOperation,
   updateManyUserOperation,
+  updateUserOperation,
 } from "./__test__/operations";
 import { rawUserData, seedUser } from "./__test__/seed";
 
@@ -46,17 +46,14 @@ describe("User Module", () => {
   });
 
   it("Positive - MUTATION: CREATE USER", async () => {
-    await createUserOperation(
-      { firstName: "Jgvp0dFwLL", lastName: "g7c5GwF86p", email: "E7TSkcI@gmail.com", password: "2jlmJym8h0", lastLoggedIn: new Date() },
-      server
-    );
+    await createUserOperation({ firstName: "Jgvp0dFwLL", lastName: "g7c5GwF86p", email: "E7TSkcI@gmail.com", password: "2jlmJym8h0" }, server);
   });
 
   it("Positive - MUTATION: CREATE MANY USERS", async () => {
     const newUsers = await createManyUserOperation(
       [
-        { firstName: "1blO1E7RzJ", lastName: "FdT13cq30I", email: "bajlNOI@gmail.com", password: "yfWB8K0lpB", lastLoggedIn: new Date() },
-        { firstName: "K51MRHTYqa", lastName: "W8xQF4Wj4M", email: "rmRdgoa@gmail.com", password: "THhfKePV4K", lastLoggedIn: new Date() },
+        { firstName: "1blO1E7RzJ", lastName: "FdT13cq30I", email: "bajlNOI@gmail.com", password: "yfWB8K0lpB" },
+        { firstName: "K51MRHTYqa", lastName: "W8xQF4Wj4M", email: "rmRdgoa@gmail.com", password: "THhfKePV4K" },
       ],
       server
     );
@@ -71,8 +68,6 @@ describe("User Module", () => {
         firstName: "AP6oVIoRem",
         lastName: "3gFUAlLJK4",
         email: "8FcJtqB@gmail.com",
-        password: "DD33vZgPC5",
-        lastLoggedIn: new Date(),
       },
       server
     );
@@ -86,16 +81,12 @@ describe("User Module", () => {
           firstName: "XF3KjFwp2a",
           lastName: "yyAcQ7qzcQ",
           email: "PbdCipr@gmail.com",
-          password: "OKXq0akWYK",
-          lastLoggedIn: new Date(),
         },
         {
           _id: updateUserIdTwo,
           firstName: "odfWwODfAv",
           lastName: "OtqjyI7Ua8",
           email: "jw5ndad@gmail.com",
-          password: "5IcW3CWSak",
-          lastLoggedIn: new Date(),
         },
       ],
       server

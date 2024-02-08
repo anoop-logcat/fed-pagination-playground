@@ -1,6 +1,6 @@
 extend schema @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key", "@shareable", "@external"])
 
-directive @serviceAdmin on OBJECT | FIELD_DEFINITION | INTERFACE | UNION
+directive @serviceAdmin on FIELD_DEFINITION
 
 scalar JSON
 scalar DateTime

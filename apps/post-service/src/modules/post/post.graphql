@@ -1,7 +1,7 @@
 type Post @key(fields: "_id createdBy") {
   _id: ID!
-  createdAt: DateTime
-  updatedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
   description: String
   imageUrl: String!
@@ -9,7 +9,7 @@ type Post @key(fields: "_id createdBy") {
 }
 
 extend type User @key(fields: "_id") {
-  _id: ID!
+  _id: ID! @external
   posts(filter: JSON, sort: JSON, limit: Int, offset: Int): [Post]!
 }
 
@@ -33,7 +33,7 @@ extend type Query {
   getAllPost(search: String, filter: JSON, sort: JSON, limit: Int, offset: Int): [Post]!
     @serviceAdmin
     @cacheSet(type: "getAllPost", identifier: "_id")
-  getOnePost(filter: JSON, sort: JSON): Post @serviceAdmin @cacheSet(type: "getPost", identifier: "_id")
+  getOnePost(filter: JSON, sort: JSON): Post @serviceAdmin @cacheSet(type: "getOnePost", identifier: "_id")
   getAllPostCount(search: String, filter: JSON): Int! @serviceAdmin
 }
 
