@@ -1,0 +1,48 @@
+{
+	"_id": {
+		"$oid": "65c528e7e06dffef85d39ade"
+	},
+	"productName": "Bag",
+	"productDescription": "nice bag",
+	"price": 350,
+	"isAvailable": true,
+	"createdAt": {
+		"$date": "2024-02-08T19:17:59.676Z"
+	},
+	"updatedAt": {
+		"$date": "2024-02-08T19:17:59.676Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "65c528fae06dffef85d39ae0"
+	},
+	"productName": "Pencil",
+	"productDescription": "nice Pencil",
+	"price": 450,
+	"isAvailable": true,
+	"createdAt": {
+		"$date": "2024-02-08T19:18:18.872Z"
+	},
+	"updatedAt": {
+		"$date": "2024-02-08T19:18:18.872Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "65c52904e06dffef85d39ae2"
+	},
+	"productName": "Book",
+	"productDescription": "Book Pencil",
+	"price": 20,
+	"isAvailable": true,
+	"createdAt": {
+		"$date": "2024-02-08T19:18:28.611Z"
+	},
+	"updatedAt": {
+		"$date": "2024-02-08T19:18:28.611Z"
+	},
+	"__v": 0
+}

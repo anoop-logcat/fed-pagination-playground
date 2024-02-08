@@ -1,0 +1,38 @@
+{
+	"_id": {
+		"$oid": "65c4e25c3cf44551d891882b"
+	},
+	"firstName": "Anoop",
+	"lastName": "Benzier",
+	"email": "anoop.b+01@hubspire.com",
+	"password": "Test@123",
+	"lastLoggedIn": {
+		"$date": "2011-10-05T14:48:00Z"
+	},
+	"createdAt": {
+		"$date": "2024-02-08T14:17:00.923Z"
+	},
+	"updatedAt": {
+		"$date": "2024-02-08T14:17:00.923Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "65c4f0650e924bc86c024c2b"
+	},
+	"firstName": "Anoop",
+	"lastName": "Benzier 02",
+	"email": "anoop.b+02@hubspire.com",
+	"password": "Test@123",
+	"lastLoggedIn": {
+		"$date": "2011-10-05T14:48:00Z"
+	},
+	"createdAt": {
+		"$date": "2024-02-08T15:16:53.583Z"
+	},
+	"updatedAt": {
+		"$date": "2024-02-08T15:16:53.583Z"
+	},
+	"__v": 0
+}

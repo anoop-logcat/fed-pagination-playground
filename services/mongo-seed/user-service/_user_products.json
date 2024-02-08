@@ -1,0 +1,54 @@
+{
+	"_id": {
+		"$oid": "65c52965c8224cd030defd92"
+	},
+	"userId": {
+		"$oid": "65c4e25c3cf44551d891882b"
+	},
+	"productId": {
+		"$oid": "65c528e7e06dffef85d39ade"
+	},
+	"createdAt": {
+		"$date": "2024-02-08T19:20:05.663Z"
+	},
+	"updatedAt": {
+		"$date": "2024-02-08T19:20:05.663Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "65c52973727adf4a350bdcaa"
+	},
+	"userId": {
+		"$oid": "65c4e25c3cf44551d891882b"
+	},
+	"productId": {
+		"$oid": "65c52904e06dffef85d39ae2"
+	},
+	"createdAt": {
+		"$date": "2024-02-08T19:20:19.454Z"
+	},
+	"updatedAt": {
+		"$date": "2024-02-08T19:20:19.454Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "65c52984ad61bd2befa08cb0"
+	},
+	"userId": {
+		"$oid": "65c4f0650e924bc86c024c2b"
+	},
+	"productId": {
+		"$oid": "65c528fae06dffef85d39ae0"
+	},
+	"createdAt": {
+		"$date": "2024-02-08T19:20:36.225Z"
+	},
+	"updatedAt": {
+		"$date": "2024-02-08T19:20:36.225Z"
+	},
+	"__v": 0
+}
