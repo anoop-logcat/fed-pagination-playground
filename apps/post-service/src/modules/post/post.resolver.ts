@@ -1,4 +1,3 @@
-import { omit } from "lodash";
 import { Resolvers } from "../../libs/types";
 
 export default {
@@ -20,13 +19,6 @@ export default {
     __resolveReference: async (ref, context, info) => (ref._id ? context.loaders.postByIdLoader.load(ref._id) : null),
   },
   User: {
-    posts: (parent, args, context, info) =>
-      context.dataSources.postDataSource.getAllPost({
-        filter: {
-          createdBy: { $eq: parent._id },
-          ...args.filter,
-        },
-        ...omit(args, "filter"),
-      }),
+    posts: (parent, args, context, info) => context.loaders.postsByUserIdBatchFunc.load({ userId: parent._id, args }),
   },
 } as Resolvers;
