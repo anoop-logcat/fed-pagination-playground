@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "firsttris.vscode-jest-runner",
+    "dbaeumer.vscode-eslint",
+    "sonarsource.sonarlint-vscode",
+    "nrwl.angular-console",
+    "apollographql.vscode-apollo",
+    "ms-azuretools.vscode-docker",
+    "knisterpeter.vscode-commitizen",
+    "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense",
+    "mikestead.dotenv"
+  ]
+}

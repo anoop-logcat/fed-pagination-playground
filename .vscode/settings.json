@@ -1,0 +1,39 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "breadcrumbs.enabled": false,
+  "zenMode.hideLineNumbers": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "cSpell.words": ["firestore", "datasource", "upsert", "codegen", "postbuild", "datas", "hubspire"],
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "search.exclude": {
+    "CHANGELOG.md": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[graphql]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.foldingMaximumRegions": 15000,
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "cweijan.vscode-mysql-client2"
+  }
+}

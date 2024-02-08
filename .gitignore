@@ -1,0 +1,37 @@
+# dependencies
+node_modules
+
+# build files
+dist
+tmp
+.nx
+
+# ignore Jest test report
+coverage
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ENV
+.env
+.env.*
+!.env.example
+!.env.*.gpg
+!.env.test
+.envrc
+
+# Firebase log files
+database-debug.log
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+*.DS_store
+
+# serverless build related files
+.esbuild
+.serverless
