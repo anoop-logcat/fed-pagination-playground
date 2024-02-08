@@ -1,0 +1,50 @@
+type Product @key(fields: "_id") {
+  _id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  productName: String!
+  productDescription: String
+  price: Int!
+  isAvailable: Boolean
+}
+
+input CreateProductInput {
+  productName: String!
+  productDescription: String
+  price: Int!
+  isAvailable: Boolean
+}
+
+input UpdateProductInput {
+  _id: ID!
+  productName: String
+  productDescription: String
+  price: Int
+  isAvailable: Boolean
+}
+
+extend type Query {
+  getProductById(_id: ID!): Product @serviceAdmin @cacheSet(type: "getProductById", identifier: "_id")
+  getAllProduct(search: String, filter: JSON, sort: JSON, limit: Int, offset: Int): [Product]!
+    @serviceAdmin
+    @cacheSet(type: "getAllProduct", identifier: "_id")
+  getOneProduct(filter: JSON, sort: JSON): Product @serviceAdmin @cacheSet(type: "getProduct", identifier: "_id")
+  getAllProductCount(search: String, filter: JSON): Int! @serviceAdmin
+}
+
+extend type Mutation {
+  createProduct(data: CreateProductInput!): Product! @serviceAdmin @cachePurge(payloads: [{ types: ["getOneProduct", "getAllProduct"] }])
+  createManyProduct(datas: [CreateProductInput!]!): [Product!]! @serviceAdmin @cachePurge(payloads: [{ types: ["getOneProduct", "getAllProduct"] }])
+  updateProduct(data: UpdateProductInput!): Product!
+    @serviceAdmin
+    @cachePurge(payloads: [{ types: ["getOneProduct", "getAllProduct", "getProductById"], identifier: "_id" }])
+  updateManyProduct(datas: [UpdateProductInput!]!): [Product!]!
+    @serviceAdmin
+    @cachePurge(payloads: [{ types: ["getOneProduct", "getAllProduct", "getProductById"], identifier: "_id" }])
+  deleteProduct(_id: ID!): Product!
+    @serviceAdmin
+    @cachePurge(payloads: [{ types: ["getOneProduct", "getAllProduct", "getProductById"], identifier: "_id" }])
+  deleteManyProduct(filter: JSON!): [Product!]!
+    @serviceAdmin
+    @cachePurge(payloads: [{ types: ["getOneProduct", "getAllProduct", "getProductById"], identifier: "_id" }])
+}

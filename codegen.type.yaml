@@ -30,3 +30,19 @@ generates:
         EmailAddress: string
       mappers:
         Post: ../../../modules/post/post.model#IPostDocument
+  ./apps/product-service/src/libs/types/generated/base-types.ts:
+    schema: ./apps/product-service/src/modules/**/*.graphql
+    plugins:
+      - typescript
+      - typescript-resolvers
+    config:
+      useIndexSignature: true
+      federation: true
+      wrapFieldDefinitions: true
+      contextType: ../index#ProductServiceContext
+      scalars:
+        DateTime: Date
+        EmailAddress: string
+      mappers:
+        Product: ../../../modules/product/product.model#IProductDocument
+        UserProduct: ../../../modules/userProduct/userProduct.model#IUserProductDocument

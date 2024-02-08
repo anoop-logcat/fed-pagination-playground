@@ -1,0 +1,15 @@
+extend schema @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key", "@shareable", "@external"])
+
+directive @serviceAdmin on OBJECT | FIELD_DEFINITION | INTERFACE | UNION
+
+scalar JSON
+scalar DateTime
+scalar EmailAddress
+
+directive @cacheSet(type: String!, identifier: String!, maxAge: Int = 900) on FIELD_DEFINITION
+
+input CachePurgeInput {
+  types: [String!]!
+  identifier: String
+}
+directive @cachePurge(payloads: [CachePurgeInput!]!) on FIELD_DEFINITION
