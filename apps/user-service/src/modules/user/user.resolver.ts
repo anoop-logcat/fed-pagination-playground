@@ -21,4 +21,7 @@ export default {
   Post: {
     createdByUser: async (post, args, context) => context.loaders.userByIdLoader.load(post.createdBy),
   },
+  Product: {
+    users: (parent, args, context, info) => context.loaders.usersByProductIdLoader.load({ productId: parent._id, args }),
+  },
 } as Resolvers;

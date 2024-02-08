@@ -82,6 +82,20 @@ export type Post = {
   createdByUser: FieldWrapper<User>;
 };
 
+export type Product = {
+  __typename?: 'Product';
+  _id: FieldWrapper<Scalars['ID']['output']>;
+  users: Array<Maybe<FieldWrapper<User>>>;
+};
+
+
+export type ProductUsersArgs = {
+  filter?: InputMaybe<Scalars['JSON']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['JSON']['input']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   getAllUser: Array<Maybe<FieldWrapper<User>>>;
@@ -230,8 +244,9 @@ export type ResolversTypes = ResolversObject<{
   Mutation: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Post: ResolverTypeWrapper<Omit<Post, 'createdByUser'> & { createdByUser: ResolversTypes['User'] }>;
-  Query: ResolverTypeWrapper<{}>;
+  Product: ResolverTypeWrapper<Omit<Product, 'users'> & { users: Array<Maybe<ResolversTypes['User']>> }>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Query: ResolverTypeWrapper<{}>;
   UpdateUserInput: UpdateUserInput;
   User: ResolverTypeWrapper<IUserDocument>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
@@ -248,8 +263,9 @@ export type ResolversParentTypes = ResolversObject<{
   Mutation: {};
   ID: Scalars['ID']['output'];
   Post: Omit<Post, 'createdByUser'> & { createdByUser: ResolversParentTypes['User'] };
-  Query: {};
+  Product: Omit<Product, 'users'> & { users: Array<Maybe<ResolversParentTypes['User']>> };
   Int: Scalars['Int']['output'];
+  Query: {};
   UpdateUserInput: UpdateUserInput;
   User: IUserDocument;
   Boolean: Scalars['Boolean']['output'];
@@ -301,6 +317,13 @@ export type PostResolvers<ContextType = UserServiceContext, ParentType extends R
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type ProductResolvers<ContextType = UserServiceContext, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Product']>, { __typename: 'Product' } & GraphQLRecursivePick<UnwrappedObject<ParentType>, {"_id":true}>, ContextType>;
+
+  users?: Resolver<Array<Maybe<ResolversTypes['User']>>, { __typename: 'Product' } & GraphQLRecursivePick<ParentType, {"_id":true}>, ContextType, Partial<ProductUsersArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type QueryResolvers<ContextType = UserServiceContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getAllUser?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType, Partial<QueryGetAllUserArgs>>;
   getAllUserCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<QueryGetAllUserCountArgs>>;
@@ -326,6 +349,7 @@ export type Resolvers<ContextType = UserServiceContext> = ResolversObject<{
   JSON?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
+  Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;

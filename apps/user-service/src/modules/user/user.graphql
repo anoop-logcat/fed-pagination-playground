@@ -13,6 +13,11 @@ extend type Post @key(fields: "createdBy") {
   createdByUser: User!
 }
 
+extend type Product @key(fields: "_id") {
+  _id: ID! @external
+  users(filter: JSON, sort: JSON, limit: Int, offset: Int): [User]!
+}
+
 input CreateUserInput {
   firstName: String!
   lastName: String

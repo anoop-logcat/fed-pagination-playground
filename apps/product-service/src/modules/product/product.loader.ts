@@ -13,11 +13,11 @@ export async function ProductByIdBatchFunc(ids: readonly string[]) {
   return ids.map((id: string) => products.find((product: IProductDocument) => String(product._id.valueOf()) === id));
 }
 
-type TProductByUserIdBatchFunc = {
+type TProductsByUserIdBatchFunc = {
   userId: string;
   args: UserProductsArgs;
 };
-export async function ProductByUserIdBatchFunc(ids: readonly TProductByUserIdBatchFunc[]) {
+export async function ProductsByUserIdBatchFunc(ids: readonly TProductsByUserIdBatchFunc[]) {
   const userIds = ids.map((id) => new Types.ObjectId(id.userId));
   const limit = ids[0].args.limit || 10;
   const offset = ids[0].args.offset || 0;

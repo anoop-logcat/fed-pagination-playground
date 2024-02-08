@@ -1,8 +1,8 @@
 import DataLoader from "dataloader";
-import { ProductByIdBatchFunc, ProductByUserIdBatchFunc } from "../modules/product/product.loader";
+import { ProductByIdBatchFunc, ProductsByUserIdBatchFunc } from "../modules/product/product.loader";
 
 const loaders = {
-  productByUserIdLoader: new DataLoader(ProductByUserIdBatchFunc),
+  productsByUserIdLoader: new DataLoader(ProductsByUserIdBatchFunc),
   productByIdLoader: new DataLoader(ProductByIdBatchFunc),
 };
 
