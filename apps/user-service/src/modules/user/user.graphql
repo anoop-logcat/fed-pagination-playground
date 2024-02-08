@@ -9,8 +9,7 @@ type User @key(fields: "_id") {
   lastLoggedIn: DateTime
 }
 
-extend type Post @key(fields: "_id createdBy") {
-  _id: ID! @external
+extend type Post @key(fields: "createdBy") {
   createdBy: ID! @external
   createdByUser: User!
 }

@@ -79,7 +79,6 @@ export type MutationUpdateUserArgs = {
 
 export type Post = {
   __typename?: 'Post';
-  _id: FieldWrapper<Scalars['ID']['output']>;
   createdBy: FieldWrapper<Scalars['ID']['output']>;
   createdByUser: FieldWrapper<User>;
 };
@@ -301,10 +300,9 @@ export type MutationResolvers<ContextType = UserServiceContext, ParentType exten
 }>;
 
 export type PostResolvers<ContextType = UserServiceContext, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Post']>, { __typename: 'Post' } & GraphQLRecursivePick<UnwrappedObject<ParentType>, {"_id":true,"createdBy":true}>, ContextType>;
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Post']>, { __typename: 'Post' } & GraphQLRecursivePick<UnwrappedObject<ParentType>, {"createdBy":true}>, ContextType>;
 
-
-  createdByUser?: Resolver<ResolversTypes['User'], { __typename: 'Post' } & GraphQLRecursivePick<ParentType, {"_id":true,"createdBy":true}>, ContextType>;
+  createdByUser?: Resolver<ResolversTypes['User'], { __typename: 'Post' } & GraphQLRecursivePick<ParentType, {"createdBy":true}>, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
